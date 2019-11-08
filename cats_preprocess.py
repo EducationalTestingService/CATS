@@ -1,14 +1,16 @@
 ## This script preprocesses texts, creates and stores (seiralizes) instances (Tensorflow's TF Records) for classification (training or prediction)
 
-import serializer
-import config
-import utils
-import numpy as np
-import pickle
 import os
+import pickle
+
+import numpy as np
+
+import config
+import serializer
+import utils
 
 
-def main(input_dir, output_dir, train=False, ssplit=True):
+def main(input_dir, output_dir, train=False, ssplit=False):
 
     if train is True and ssplit is False:
         print("For preparing training instances (that is, if --train 1), the text files need to be in the one-sentence-per-line format (must be set --ssplit 1)")
