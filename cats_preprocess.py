@@ -55,6 +55,7 @@ else:
 
 print("To create TFRECORD instances...")
 
+# Serialization is different based on test/train
 test_mode = (args.train == 0)
 
 res = serializer.create_instances(args.input_dir, vocab_tgt, os.path.join(args.output_dir, "records.tf"), test = test_mode, title_start = config.seg_start, ssplit = (args.ssplit == 1))
