@@ -35,6 +35,7 @@ nltk=3.4
 numpy=1.15.4
 numpy-base=1.15.4
 openssl=1.1.1d
+pathlib=1.0.1
 pip=19.2.3
 protobuf=3.9.2
 python=3.6.9
