@@ -2,7 +2,7 @@
 # DATA
 ###
 
-texts_lang = "hr"
+texts_lang = "en"
 seg_start = "==========="
 fake_sent = "fake sent 123: bla one bla day bla whatever."
 
