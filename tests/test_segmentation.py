@@ -26,7 +26,7 @@ def test_output():
     except Exception as e:
       print(e)
 
-  segment.run_segmentation("/home/nlp-text/dynamic/aganesh002/text-segmentation/cats_reinstall/data/datasets/en/sample-text", test_output_path)
+  segment.main("/home/nlp-text/dynamic/aganesh002/text-segmentation/cats_reinstall/data/datasets/en/sample-text", test_output_path)
 
   orig_output = "/home/nlp-text/dynamic/aganesh002/text-segmentation/cats_reinstall/data/datasets/en/sample-segmented/wiki_sample.txt.seg"
 
