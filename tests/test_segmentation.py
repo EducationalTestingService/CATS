@@ -26,9 +26,9 @@ def test_output():
     except Exception as e:
       print(e)
 
-  segment.main("/home/nlp-text/dynamic/aganesh002/text-segmentation/cats_reinstall/data/datasets/en/sample-text", test_output_path)
+  segment.main(join(_this_dir, "input"), test_output_path)
 
-  orig_output = "/home/nlp-text/dynamic/aganesh002/text-segmentation/cats_reinstall/data/datasets/en/sample-segmented/wiki_sample.txt.seg"
+  orig_output = join(_this_dir, "output", "wiki_sample.txt.seg")
 
   test_output = os.path.join(test_output_path, "wiki_sample.txt.seg")
 
@@ -37,3 +37,4 @@ def test_output():
       orig_score = orig_line.split()[-1]
       test_score = orig_line.split()[-1]
       assert orig_score[:5] == test_score[:5]
+#  assert 1 == 0
