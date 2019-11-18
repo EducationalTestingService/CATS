@@ -8,19 +8,20 @@ fake_sent = "fake sent 123: bla one bla day bla whatever."
 
 # pre-trained word embs
 vecs_dim = 300
+MODEL_PATH="/home/nlp-text/dynamic/aganesh002/text-segmentation/cats_reinstall"
 
-vocab_path_en = "/home/nlp-text/dynamic/aganesh002/text-segmentation/cats_reinstall/data/embeddings/en.vocab"
-vecs_path_en = "/home/nlp-text/dynamic/aganesh002/text-segmentation/cats_reinstall/data/embeddings/en.vectors"
+vocab_path_en = "{}/data/embeddings/en.vocab".format(MODEL_PATH)
+vecs_path_en = "{}/data/embeddings/en.vectors".format(MODEL_PATH)
 
-vocab_path_lang = "/home/nlp-text/dynamic/aganesh002/text-segmentation/cats_reinstall/data/embeddings/hr.vocab"
-vecs_path_lang = "/home/nlp-text/dynamic/aganesh002/text-segmentation/cats_reinstall/data/embeddings/hr.vectors"
+vocab_path_lang = "{}/data/embeddings/hr.vocab".format(MODEL_PATH)
+vecs_path_lang = "{}/data/embeddings/hr.vectors".format(MODEL_PATH)
 
 ###
 # MODEL
 ###
 
 MODEL_TYPE = "cats" # 'cats' or 'tlt'
-MODEL_HOME = "/home/nlp-text/dynamic/aganesh002/text-segmentation/cats_reinstall/data/models/cats_pretrained" # for TLT, use "data/models/tlt_pretrained"
+MODEL_HOME = "{}/data/models/cats_pretrained".format(MODEL_PATH)  # for TLT, use "data/models/tlt_pretrained"
 
 ###
 # ARCHITECTURE AND TRAINING
