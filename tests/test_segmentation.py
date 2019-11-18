@@ -3,11 +3,12 @@ import shutil
 import sys
 from os.path import abspath, dirname, exists, join
 
+_this_dir = dirname(abspath(__file__))
+
 try:
     import segment
     import segment_input_text
 except:
-    _this_dir = dirname(abspath(__file__))
     sys.path.insert(0, join(_this_dir, '..'))
     import segment
     import segment_input_text
