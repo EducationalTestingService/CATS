@@ -1,3 +1,10 @@
+'''
+This is an API to call the logic of segmenting an input text.
+
+Author: Binod Gyawali
+Date: November, 2019
+'''
+
 import os
 import tempfile
 from concurrent.futures import ThreadPoolExecutor
@@ -11,7 +18,10 @@ from flask import Flask, jsonify, request
 import segment
 import utils
 
+# load the embeddings and vocabulary
 embeddings, vocabulary = utils.load_models()
+app = Flask(__name__)
+executor = ThreadPoolExecutor(1)
 
 
 def send_email(body, receipient):
@@ -52,6 +62,16 @@ def send_email(body, receipient):
 
 
 def segment_text(input_text, send_to):
+    """
+    A function to segment the input text and send an email with the segments.
+    Paramters
+    ---------
+    input_text: str
+        The text to segment
+    send_to: str
+        The email address to send back the segments
+    """
+
     with tempfile.TemporaryDirectory() as temp_dir:
 
         input_dir = join(temp_dir, 'input')
@@ -64,25 +84,14 @@ def segment_text(input_text, send_to):
         segment.run_segmentation(input_dir, output_dir, embeddings, vocabulary)
 
         segmented_text = open(join(output_dir, 'input.txt.seg')).readlines()
-
+        print(''.join(segmented_text))
         # send email
         send_email(' '.join(segmented_text), send_to)
-        print(segmented_text)
-        return segmented_text
-
-
-app = Flask(__name__)
-executor = ThreadPoolExecutor(1)
 
 
 @app.route('/')
 def hello_world():
     return 'Hello, World!'
-
-
-@app.route('/get_segments', methods=["GET"])
-def get_segments():
-    return 'You will get segments here'
 
 
 @app.route('/post_segments', methods=["POST"])
@@ -98,8 +107,3 @@ def post_segments():
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', debug=True)
-
-
-# curl -i -H "Content-Type: application/json" -X POST -d '{"title":"Read a book"}' http://127.0.0.1:5000/post_segments
-
-# curl -i -H "Content-Type: application/json" -X POST -d '{"text":"This is a text"}' http://bragi.research.ets.org:5000/post_segments
