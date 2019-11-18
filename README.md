@@ -20,6 +20,10 @@ If you want to give an input as an argument, then try this
 * `python segment_input_text.py {input_text}`
 
 
+### Unit tests
+* `nosetests -v tests/test_segmentation.py`
+
+
 ### API
 
 Login to any server (let's say bragi) and run the following:
