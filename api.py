@@ -44,7 +44,8 @@ def send_email(body, receipient):
     # depending on whether we are sending the email
     # as plain text or not
     msg = MIMEMultipart('alternative')
-    content = MIMEText(body, 'html')
+    text_body = '\n'.join(body)
+    content = MIMEText(text_body, 'html')
     msg.attach(content)
 
     msg['Subject'] = "segments"
@@ -86,7 +87,7 @@ def segment_text(input_text, send_to):
         segmented_text = open(join(output_dir, 'input.txt.seg')).readlines()
         print(''.join(segmented_text))
         # send email
-        send_email(' '.join(segmented_text), send_to)
+        send_email(segmented_text, send_to)
 
 
 @app.route('/')
