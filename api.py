@@ -17,6 +17,8 @@ from flask import Flask, jsonify, request
 
 import segment
 import utils
+import requests
+import json
 
 # load the embeddings and vocabulary
 embeddings, vocabulary = utils.load_models()
@@ -44,8 +46,8 @@ def send_email(body, receipient):
     # depending on whether we are sending the email
     # as plain text or not
     msg = MIMEMultipart('alternative')
-    text_body = '\n'.join(body)
-    content = MIMEText(text_body, 'html')
+    text_body = body
+    content = MIMEText(text_body)
     msg.attach(content)
 
     msg['Subject'] = "segments"
@@ -57,10 +59,18 @@ def send_email(body, receipient):
         # send the message via our own SMTP server running on localhost
         s = SMTP('127.0.0.1')
         s.send_message(msg)
+        print('Email sent successfully')
         s.quit()
     except Exception as e:
         raise Exception(str(e))
 
+def submit_segments(segments):
+    segments_str = '====='.join(segments)
+    print(segments_str)
+    post_url = 'http://c3dev.research.ets.org/TextSegmentation/handlers/SegmentationResponse.ashx'
+    to_submit = json.dumps({'requestId': 1, 'segmentedText': segments_str, 'statusCode': 1, 'statusMessage': 'completed'})
+    r = requests.post(post_url, data={'message': to_submit})
+    print(r.status_code, r.reason)
 
 def segment_text(input_text, send_to):
     """
@@ -84,8 +94,10 @@ def segment_text(input_text, send_to):
 
         segment.run_segmentation(input_dir, output_dir, embeddings, vocabulary)
 
-        segmented_text = open(join(output_dir, 'input.txt.seg')).readlines()
-        print(''.join(segmented_text))
+        segmented_text = open(join(output_dir, 'input.txt.seg')).read()
+        segments = segmented_text.split('===========')
+        #print('==='.join(segments))
+        submit_segments(segments)
         # send email
         send_email(segmented_text, send_to)
 
