@@ -56,5 +56,5 @@ def test_with_input_file():
     orig_lines = open(orig_output).readlines()
     for orig_line, test_line in zip(orig_lines, segmented_text):
         orig_score = orig_line.split()[-1]
-        test_score = orig_line.split()[-1]
+        test_score = test_line.split()[-1]
         assert orig_score[:5] == test_score[:5]
