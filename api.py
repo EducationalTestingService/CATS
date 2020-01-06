@@ -67,7 +67,7 @@ def send_email(body, receipient):
 
 def submit_segments(segments, request_id, return_url):
     segments_str = '====='.join(segments)
-    segments_str_encoded = html.unescape(segments_str)
+    segments_str_encoded = html.escape(segments_str)
     print(segments_str)
     print(request_id)
     print(return_url)
