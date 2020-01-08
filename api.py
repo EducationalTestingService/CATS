@@ -121,6 +121,7 @@ def post_segments():
     request_id = request_json.get('requestId')
     return_url = request_json.get('returnURL')
     #send_to = request_json.get('send_to_email')
+    print(input_text)
     executor.submit(segment_text, input_text, request_id, return_url)
 
     print(request_json)
