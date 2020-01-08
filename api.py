@@ -17,6 +17,9 @@ from flask import Flask, jsonify, request
 
 import segment
 import utils
+import requests
+import json
+import html
 
 # load the embeddings and vocabulary
 embeddings, vocabulary = utils.load_models()
@@ -44,7 +47,8 @@ def send_email(body, receipient):
     # depending on whether we are sending the email
     # as plain text or not
     msg = MIMEMultipart('alternative')
-    content = MIMEText(body, 'html')
+    text_body = body
+    content = MIMEText(text_body)
     msg.attach(content)
 
     msg['Subject'] = "segments"
@@ -56,12 +60,26 @@ def send_email(body, receipient):
         # send the message via our own SMTP server running on localhost
         s = SMTP('127.0.0.1')
         s.send_message(msg)
+        print('Email sent successfully')
         s.quit()
     except Exception as e:
         raise Exception(str(e))
 
+def submit_segments(segments, request_id, return_url):
+    segments_str = '====='.join(segments)
+    segments_str_encoded = html.escape(segments_str)
+    print(segments_str)
+    print(request_id)
+    print(return_url)
+    #post_url = 'http://c3dev.research.ets.org/TextSegmentation/handlers/SegmentationResponse.ashx'
+    try:
+        to_submit = json.dumps({'requestId': request_id, 'segmentedText': segments_str_encoded, 'statusCode': 1, 'statusMessage': 'completed'})
+    except Exception as e:
+        print(e)
+    r = requests.post(return_url, data={'message': to_submit})
+    print(r.status_code, r.reason)
 
-def segment_text(input_text, send_to):
+def segment_text(input_text, request_id, return_url):
     """
     A function to segment the input text and send an email with the segments.
     Paramters
@@ -83,10 +101,12 @@ def segment_text(input_text, send_to):
 
         segment.run_segmentation(input_dir, output_dir, embeddings, vocabulary)
 
-        segmented_text = open(join(output_dir, 'input.txt.seg')).readlines()
-        print(''.join(segmented_text))
+        segmented_text = open(join(output_dir, 'input.txt.seg')).read()
+        segments = segmented_text.split('=====')
+        #print('==='.join(segments))
+        submit_segments(segments, request_id, return_url)
         # send email
-        send_email(' '.join(segmented_text), send_to)
+        #send_email(segmented_text, send_to)
 
 
 @app.route('/')
@@ -97,9 +117,12 @@ def hello_world():
 @app.route('/post_segments', methods=["POST"])
 def post_segments():
     request_json = request.get_json()
-    input_text = request_json.get('text')
-    send_to = request_json.get('send_to_email')
-    executor.submit(segment_text, input_text, send_to)
+    input_text = html.unescape(request_json.get('passageText'))
+    request_id = request_json.get('requestId')
+    return_url = request_json.get('returnURL')
+    #send_to = request_json.get('send_to_email')
+    print(input_text)
+    executor.submit(segment_text, input_text, request_id, return_url)
 
     print(request_json)
     return (jsonify({"status" : "ok"}), 201)

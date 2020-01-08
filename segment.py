@@ -8,7 +8,7 @@ import utils
 def run_segmentation(input_dir, output_dir, embeddings, vocabulary):
 
     cats_preprocess.preprocess(input_dir, output_dir, vocabulary, ssplit=False)
-    cats_predict.predict(output_dir, output_dir, embeddings, vocabulary, scores=True)
+    cats_predict.predict(output_dir, output_dir, embeddings, vocabulary, scores=False)
 
 def main(input_dir, output_dir):
     embeddings, vocabulary = utils.load_models()

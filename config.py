@@ -3,7 +3,7 @@
 ###
 
 texts_lang = "en"
-seg_start = "==========="
+seg_start = "====="
 fake_sent = "fake sent 123: bla one bla day bla whatever."
 
 # pre-trained word embs
