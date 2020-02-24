@@ -68,6 +68,9 @@ def send_email(body, receipient):
 def submit_segments(segments, request_id, return_url):
     segments_str = '====='.join(segments)
     segments_str_encoded = html.escape(segments_str)
+    logfname = os.path.join('logs', str(request_id) + '_log.txt')
+    logfile = open(logfname, 'w')
+    logfile.write(segments_str_encoded)
     print(segments_str)
     print(request_id)
     print(return_url)
@@ -78,6 +81,8 @@ def submit_segments(segments, request_id, return_url):
         print(e)
     r = requests.post(return_url, data={'message': to_submit})
     print(r.status_code, r.reason)
+    logfile.write('\n' + str(r.status_code) + ' ' + r.reason)
+    logfile.close()
 
 def segment_text(input_text, request_id, return_url):
     """
