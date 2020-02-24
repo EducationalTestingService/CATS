@@ -8,7 +8,7 @@ fake_sent = "fake sent 123: bla one bla day bla whatever."
 
 # pre-trained word embs
 vecs_dim = 300
-MODEL_PATH="/home/nlp-text/dynamic/aganesh002/text-segmentation/cats_reinstall"
+MODEL_PATH="/home/nlp-text/static/aganesh002/text-segmentation"
 
 vocab_path_en = "{}/data/embeddings/en.vocab".format(MODEL_PATH)
 vecs_path_en = "{}/data/embeddings/en.vectors".format(MODEL_PATH)
