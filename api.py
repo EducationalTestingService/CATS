@@ -67,7 +67,8 @@ def send_email(body, receipient):
 
 def submit_segments(segments, request_id, return_url):
     segments_str = '====='.join(segments)
-    segments_str_encoded = html.escape(segments_str)
+    #segments_str_encoded = html.escape(segments_str)
+    segments_str_encoded = json.dumps(segments_str)
     logfname = os.path.join('logs', str(request_id) + '_log.txt')
     logfile = open(logfname, 'w')
     logfile.write(segments_str_encoded)
@@ -124,6 +125,7 @@ def post_segments():
     request_json = request.get_json()
     input_text = html.unescape(request_json.get('passageText'))
     request_id = request_json.get('requestId')
+    passageId = request_json.get('passageId')
     return_url = request_json.get('returnURL')
     #send_to = request_json.get('send_to_email')
     print(input_text)
