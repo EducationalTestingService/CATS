@@ -150,6 +150,7 @@ You should be receiving an email to the provided email address with the segments
 
 ##### Authors
 
+* Goran Glavaš
 * Binod Gyawali
 * Ananya Ganesh
 
