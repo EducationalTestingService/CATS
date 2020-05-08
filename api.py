@@ -105,6 +105,9 @@ def segment_text(input_text, request_id, return_url):
         with open(join(input_dir, 'input.txt'), 'w') as wf:
             wf.write(input_text)
 
+        with open(os.path.join('input-logs', str(request_id) + '_input.txt'), 'w') as input_log:
+            input_log.write(input_text)
+
         segment.run_segmentation(input_dir, output_dir, embeddings, vocabulary)
 
         segmented_text = open(join(output_dir, 'input.txt.seg')).read()
