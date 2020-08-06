@@ -105,7 +105,6 @@ CATS tools have the following prominent Python library dependencies:
 
 For the training of the models, it is recommended to have access to Graphical Processing Units (GPUs) and the GPU version of Tensorflow installed. If the CATS tool is to be used only the segment texts using the provided pre-trained models, this is feasible on CPUs as well (albeit it is going to be slower than running on GPUs by a factor of 2-3). Running the pre-trained models to make segmentation prediction requires ca. 4GB working memory (RAM). Training the models from scratch requires 12GB working memory (RAM).
 
-## Unit tests
+## Unit Tests
 
 * `nosetests -v tests/test_segmentation.py`
-
