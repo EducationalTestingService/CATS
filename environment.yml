@@ -1,0 +1,15 @@
+name: ts
+channels:
+  - defaults
+  - http://nlp.research.ets.org/conda
+  - menpo
+  - desilinguist
+  - dan_blanchard
+  - maxwell-k
+  - conda-forge
+dependencies:
+  - python==3.6
+  - tensorflow==1.12
+  - nltk==3.4
+prefix: /home/conda/aganesh002/envs/ts
+

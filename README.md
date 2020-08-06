@@ -7,9 +7,9 @@ Cite as: Glavaš, Goran, and Swapna Somasundaran. “Two-Level Transformer and A
 
 ### Setup
 
-Create a conda environment using the `requirements.txt` file.
+Create a conda environment using the `environment.yml` file.
 
-* `conda create -n cats --file requirements.txt`
+* `conda create -n cats -f environment.yml`
 * `conda activate cats`
 
 ### Segment
@@ -105,52 +105,7 @@ CATS tools have the following prominent Python library dependencies:
 
 For the training of the models, it is recommended to have access to Graphical Processing Units (GPUs) and the GPU version of Tensorflow installed. If the CATS tool is to be used only the segment texts using the provided pre-trained models, this is feasible on CPUs as well (albeit it is going to be slower than running on GPUs by a factor of 2-3). Running the pre-trained models to make segmentation prediction requires ca. 4GB working memory (RAM). Training the models from scratch requires 12GB working memory (RAM).
 
-## Front end
-
-The CATS tool has also been set up to interact with an ETS-internal frontend system. This is written using the Flask framework.
-
-An additional script `segment.py` basically does the same thing as `segment.sh`, but uses Python instead. Usage:
-
-* `python segment.py {input_dir} {output_dir}` (Multiple files)
-
-* `python segment_input_text.py {input_text}` (Text input)
-
-### Unit tests
+## Unit tests
 
 * `nosetests -v tests/test_segmentation.py`
-
-### API
-
-Login to any server and run the following:
-
-`python api.py`
-
-It may take a while (a few minutes) to load the models. After the model is loaded and is ready to use, this message will be displayed:
-
-```
-python api.py
-Loaded
- * Serving Flask app "api" (lazy loading)
- * Environment: production
-   WARNING: This is a development server. Do not use it in a production deployment.
-   Use a production WSGI server instead.
- * Debug mode: on
- * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
- * Restarting with stat
-Loaded
- * Debugger is active!
- * Debugger PIN: 102-564-776
-```
-
-Now, you are ready to submit text to get segmented output. To submit a sample text to segment, run as follows:
-
-* `curl -i -H "Content-Type: application/json" -X POST -d '{"text":"{your_input_text}", "send_to_email": "{your_email_id}"}' http://bragi.research.ets.org:5000/post_segments`
-
-You should be receiving an email to the provided email address with the segments of the input text.
-
-##### Authors
-
-* Goran Glavaš
-* Binod Gyawali
-* Ananya Ganesh
 
