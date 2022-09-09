@@ -1,3 +1,5 @@
+**IMPORTANT: This project is no longer maintained and supported. It should be considered obsolete at this point.**
+
 This repository contains code for the CATS (Coherence Aware Text Segmentation) tool, which performs text segmentation. For details about the model, please refer to the AAAI 2020 paper [Two-Level Transformer and Auxiliary Coherence Modeling for Improved Text Segmentation](https://arxiv.org/abs/2001.00891).
 
 Cite as: Glavaš, Goran, and Swapna Somasundaran. “Two-Level Transformer and Auxiliary Coherence Modeling for Improved Text Segmentation.” AAAI 2020 NYC (2020).
@@ -12,13 +14,6 @@ Create a conda environment using the `environment.yml` file.
 * `conda create -n cats -f environment.yml`
 * `conda activate cats`
 
-### Segment
-
-CATS comes with pre-trained segmentation models that can be immediately
-used to segment texts. In the CATS directory, one can directly use the BASH
-script `segment.sh` to segment texual documents in a given folder.
-
-`bash segment.sh [-s 0|1] [-p 0|1] input_dir output_dir`
 
 Arguments:
 
